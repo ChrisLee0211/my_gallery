@@ -3,7 +3,7 @@ name: websiteDemo
 app: vite-pwa
 inputs:
   src:
-    src: ./src
+    src: ./main/dist
     index: index.html
     error: index.html
   region: ap-guangzhou
