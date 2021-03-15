@@ -47,7 +47,7 @@
 
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": "./main",                       /* Base directory to resolve non-absolute module names. */
+    "baseUrl": ".",                       /* Base directory to resolve non-absolute module names. */
         // 模块名到基于 baseUrl的路径映射的列表。
         "paths": {
           "@/*": [
@@ -57,6 +57,9 @@
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
     // "types": [],                           /* Type declaration files to be included in compilation. */
+    // "types":[
+    //   "src/shim.d.ts"
+    // ],
     // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
@@ -81,8 +84,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "shim.d.ts"
+    "tests/**/*.tsx", "shim.d.ts",
   ],
   "exclude": [
     "node_modules"
