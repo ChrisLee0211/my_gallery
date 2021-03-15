@@ -3,7 +3,9 @@ name: websiteDemo
 app: vite-pwa
 inputs:
   src:
-    src: ./main/dist
+    src: ./main
+    dist: ./main/dist
+    hook: npm run build
     index: index.html
     error: index.html
   region: ap-guangzhou
