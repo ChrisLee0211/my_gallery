@@ -1,0 +1,22 @@
+# serverless.template.yml
+name: vite-pwa # 项目模板的名字，模版唯一标识，不可重复
+displayName: 基于vite+vue3搭建的pwa项目，内置ts、postcss等配置 #项目模板展示在控制台的名称（中文）
+author: Chris Lee # 作者的名字
+type: template #项目类型，可填 template 或 component，此处为模版
+description: base on vite & vue3 # 描述您的项目模板
+description-i18n:
+  zh-cn: 基于vite以及vue3 # 中文描述
+keywords: pwa vite vue3 # 关键字
+repo: https://github.com/ChrisLee0211/vite-pwa # 源代码,通常为您的 github repo
+readme: https://github.com/ChrisLee0211/vite-pwa/blob/main/README.md # 详细的说明文件，通常为您的 github repo README 文件
+license: MIT # 版权声明
+src: # 描述项目中的哪些文件需要作为模板发布
+  src: ./ # 指定具体的相对目录，此目录下的文件将作为模板发布
+  exclude: #描述在指定的目录内哪些文件应该被排除
+    # 通常希望排除
+    # 1. 包含 secrets 的文件
+    # 2. .git git 源代码管理的相关文件
+    # 3. node_modules 等第三方依赖文件
+    - .env
+    - '**/node_modules'
+    - '**/package-lock.json'
