@@ -1,7 +1,5 @@
 <template>
-  <div>
-      <HelloWorld :msg="msg" />
-  </div>
+
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'

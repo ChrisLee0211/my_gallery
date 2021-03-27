@@ -1,16 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="servless test" />
   <router-view />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang='ts'>
+import {useDeviceWatcher} from './lib/hooks/useDeviceWatcher'
+import {useStore} from '../src/store/index'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  setup(){
+    const store = useStore();
+    const deviceTypeRef = useDeviceWatcher();
+    const curDeviceType = store.getters.deviceTypeGetter;
+    if(curDeviceType !== deviceTypeRef.value){
+      store.commit("SET_DEVICE_TYPE", deviceTypeRef.value)
+    }
   }
 }
 </script>
