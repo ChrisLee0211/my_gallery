@@ -9,7 +9,6 @@ export interface rootState {
 export interface moduleState {
   login: typeof loginState.state
 }
-export const key:InjectionKey<Store<rootState>> = Symbol()
 // Create a new store instance.
 const store = createStore<rootState>({
   state: {
