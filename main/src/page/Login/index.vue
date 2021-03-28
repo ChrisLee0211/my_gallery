@@ -1,12 +1,25 @@
 <template>
-    
+    <login-pc v-if="isPC" />
+    <login-mobile v-else />
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import {useStore} from 'src/store'
+import { defineComponent, computed, ref } from 'vue'
+import {useStore} from '../../store/index'
+import LoginPc from './pc/index.vue';
+import LoginMobile from './mobile/index.vue';
 export default defineComponent({
+    name: 'Login',
+    components: {
+       'login-pc': LoginPc,
+       'login-mobile':LoginMobile
+    
+    },
     setup() {
-
+        const store = useStore();
+        const isPC = computed(()=>{
+            return store.state.deviceType === 'pc'
+        })
+        return {isPC}
     },
 })
 </script>

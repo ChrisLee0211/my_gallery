@@ -3,8 +3,10 @@
 </template>
 
 <script lang='ts'>
+import {watch} from 'vue';
 import {useDeviceWatcher} from './lib/hooks/useDeviceWatcher'
 import {useStore} from '../src/store/index'
+
 
 export default {
   name: 'App',
@@ -12,9 +14,11 @@ export default {
     const store = useStore();
     const deviceTypeRef = useDeviceWatcher();
     const curDeviceType = store.getters.deviceTypeGetter;
-    if(curDeviceType !== deviceTypeRef.value){
-      store.commit("SET_DEVICE_TYPE", deviceTypeRef.value)
-    }
+    watch(deviceTypeRef,() => {
+      if(curDeviceType !== deviceTypeRef.value){
+        store.commit("SET_DEVICE_TYPE", deviceTypeRef.value)
+      }
+    })
   }
 }
 </script>

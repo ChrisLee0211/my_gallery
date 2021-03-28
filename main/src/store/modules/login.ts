@@ -1,7 +1,7 @@
 import {Module} from 'vuex';
 import {rootState} from '../index';
-interface LoginType {
-    
+export interface LoginType {
+    max:number
 }
 
 const loginState:Module<LoginType,rootState> = {
