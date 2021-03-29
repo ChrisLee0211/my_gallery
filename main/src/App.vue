@@ -13,7 +13,7 @@ export default {
   setup(){
     const store = useStore();
     const deviceTypeRef = useDeviceWatcher();
-    const curDeviceType = store.getters.deviceTypeGetter;
+    const curDeviceType = store.state.deviceType;
     watch(deviceTypeRef,() => {
       if(curDeviceType !== deviceTypeRef.value){
         store.commit("SET_DEVICE_TYPE", deviceTypeRef.value)
