@@ -3,7 +3,7 @@
 </template>
 
 <script lang='ts'>
-import {watch} from 'vue';
+import {watch, computed} from 'vue';
 import {useDeviceWatcher} from './lib/hooks/useDeviceWatcher'
 import {useStore} from '../src/store/index'
 
@@ -13,9 +13,9 @@ export default {
   setup(){
     const store = useStore();
     const deviceTypeRef = useDeviceWatcher();
-    const curDeviceType = store.state.deviceType;
+    const curDeviceType = computed(()=>store.state.deviceType);
     watch(deviceTypeRef,() => {
-      if(curDeviceType !== deviceTypeRef.value){
+      if(curDeviceType.value !== deviceTypeRef.value){
         store.commit("SET_DEVICE_TYPE", deviceTypeRef.value)
       }
     })

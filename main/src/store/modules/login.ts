@@ -1,15 +1,17 @@
 import {Module} from 'vuex';
 import {rootState} from '../index';
 export interface LoginType {
-    max:number
+    isLogin:boolean
 }
 
 const loginState:Module<LoginType,rootState> = {
     state: () => ({
-        max: 0,
+        isLogin: false,
     }),
     mutations: {
-
+        SET_LOGIN_STATUS(state, val:boolean){
+            state.isLogin = val
+        }
     },
     actions: {
       

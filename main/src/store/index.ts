@@ -15,7 +15,7 @@ const store = createStore<rootState>({
     deviceType: 'pc'
   },
   getters: {
- 
+    isLogin:(state) => (state as any).login.isLogin
   },
   mutations: {
     SET_DEVICE_TYPE: (state, type:rootState['deviceType']) => {
