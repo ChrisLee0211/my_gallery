@@ -10,7 +10,6 @@ import {useDebounceValue} from './useDebounceValue';
 export const useDeviceWatcher = ():Ref<'pc'|'mobile'> => {
     let deviceWidth = useDebounceValue(document.body.offsetWidth,200);
     const deviceType = ref<'pc'|'mobile'>(deviceWidth.value>=756?'pc':'mobile');
-    
     const resizeHandler = (e:Event) => {
       deviceWidth.value = (e.currentTarget as Window).innerWidth
     }

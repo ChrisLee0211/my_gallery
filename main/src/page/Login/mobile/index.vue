@@ -1,14 +1,26 @@
 <template>
     <div class="fixed inset-0 w-screen h-screen flex justify-center items-center bgAnimate" >
+        <section class="flex flex-col justify-between items-center space-y-6 transform -translate-y-48">
+            <cl-input :value="userInfo.username" :label="'账号'"/>
+            <cl-input :value="userInfo.password" :label="'密码'"/>
+        </section>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import CLInput from '../../../components/Input/mobile.vue'
 
 export default defineComponent({
     name:'MobileLogin',
+    components:{
+        "cl-input":CLInput
+    },
     setup() {
-        
+        const userInfo = reactive({
+            username:'',
+            password:''
+        });
+        return {userInfo}
     },
 })
 </script>
@@ -16,7 +28,7 @@ export default defineComponent({
 .bgAnimate {
     overflow: hidden;
     background-size: 400%;
-    background-image: linear-gradient(125deg,#F44336,#E91E63,#9C27B0,#3F51B5,#2196F3);
+    background-image: linear-gradient(125deg,#0099c9,#00b3a2,#3a7aa2,#3a57a2,#2196F3);
     font-family: "montserrat";
     animation: bganimation 5s infinite;
 }
