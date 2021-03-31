@@ -3,17 +3,20 @@
         <section class="flex flex-col justify-between items-center space-y-6 transform -translate-y-48">
             <cl-input :value="userInfo.username" :label="'账号'"/>
             <cl-input :value="userInfo.password" :label="'密码'"/>
+            <cl-button :loading="true" />
         </section>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import CLInput from '../../../components/Input/mobile.vue'
+import CLButton from '../../../components/Button/LoginButton.vue'
 
 export default defineComponent({
     name:'MobileLogin',
     components:{
-        "cl-input":CLInput
+        "cl-input":CLInput,
+        "cl-button":CLButton,
     },
     setup() {
         const userInfo = reactive({

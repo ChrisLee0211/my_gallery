@@ -1,12 +1,13 @@
 <template>
     <div :class="className">
-
+        <div style="width:130px;height:30px"></div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 
 export default defineComponent({
+    name:'login-button',
     props: {
         loading:{
             type:Boolean,
@@ -22,7 +23,7 @@ export default defineComponent({
     },
 })
 </script>
-<style lang="less" scoped>
+<style>
 .login-btn-active {
     display: inline-block;
     padding: 10px;
@@ -36,9 +37,10 @@ export default defineComponent({
     animation: borderAround 1.5s infinite linear;    
 }
 @keyframes borderAround {
-    0%, 100% { clip: rect(0 148px 2px 0); }
-    25% { clip: rect(0 148px 116px 146px); }
-    50% { clip: rect(114px 148px 116px 0); }
-    75% { clip: rect(0 2px 116px 0); }
+   0% {clip-path: polygon(0% 50%,0% 0%, 0% 50%);};
+   25% {clip-path: polygon(50% 0%, 100% 0%, 100% 50%,);}
+   50% {clip-path: polygon(100% 50%, 100% 100%, 50% 100%,);}
+   75% {clip-path: polygon(50% 100%, 0 100%, 0% 50,);}
+   100% {clip-path: polygon(0% 50%, 0% 0%, 50% 0%);};
 }
 </style>
