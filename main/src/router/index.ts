@@ -14,13 +14,9 @@ const router = createRouter({
 
 router.beforeEach((to,from)=>{
     if(to.name!=='Login' && store.getters.isLogin===false){
-        // router.push({name:'Login'})
-        console.log(to.name)
-        console.log(store.getters.isLogin)
         return {name:'Login'}
     }
     return true
-    // router.push('/login')
 })
 
 export default router
