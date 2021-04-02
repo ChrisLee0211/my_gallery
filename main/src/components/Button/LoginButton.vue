@@ -1,6 +1,8 @@
 <template>
     <div :class="className">
-        <div style="width:130px;height:30px"></div>
+        <div class="rounded flex items-center justify-center bg-indigo-700 shadow-md text-white " :style="`width:${width};height:${height}`">
+            <slot />
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -12,6 +14,14 @@ export default defineComponent({
         loading:{
             type:Boolean,
             default:false
+        },
+        width:{
+            type:String,
+            default:'120px'
+        },
+        height:{
+            type:String,
+            default: "30px",
         }
     },
     setup(props,ctx) {
@@ -24,50 +34,33 @@ export default defineComponent({
 })
 </script>
 <style>
-
-.login-btn-active {
-    display: inline-block;
+.login-btn {
     padding: 10px;
-    position: relative;
+    box-sizing: border-box;
 }
-.login-btn-active::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; right: 0; bottom: 0;
-    border: 2px solid #cd0000;
-    animation: borderAround 4s infinite linear;    
+.login-btn-active {
+    border: 2px solid lightblue;
+    border-radius: 0.25rem;
+    padding: 10px;
+    box-sizing: border-box;
+    animation: broderAround 2s linear 0s infinite normal;   
 }
-@keyframes borderAround {
 
-   0% {
-       clip-path: inset(0% 75% 25% 0%);
+@keyframes broderAround {
+    0% {
+        clip-path: circle(40% at 0 0) ;
     }
-   15% {
-       clip-path: inset(0% 25% 75% 0%);
+    25%{
+        clip-path: circle(40% at 100% 0) ;
     }
-   30% {
-       clip-path: inset(0% 0% 75% 25%);
+    50%{
+        clip-path: circle(40% at 100% 100%) ;
     }
-   45% {
-       clip-path: inset(0% 0% 25% 75%);
-       }
-   60% {
-       clip-path: inset(25% 0% 0% 75%);
-       }
-   75% {
-       clip-path: inset(75% 0% 0% 25%);
-       }
-   90% {
-       clip-path: inset(75% 25% 0% 0%);
-       }
-   100% {
-       clip-path: inset(25% 75% 0% 0%);
-       }
-   /* 100% {
-       clip-path: inset(0% 75% 25% 0%);
-       } */
-   /* 100% {
-       clip-path: inset(0% 75% 75% 0%);
-       } */
+    75%{
+        clip-path: circle(40% at 0% 100%) ;
+    }
+    100% {
+         clip-path: circle(40% at 0 0) ;
+    }
 }
 </style>

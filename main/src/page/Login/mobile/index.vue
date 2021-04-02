@@ -3,12 +3,14 @@
         <section class="flex flex-col justify-between items-center space-y-6 transform -translate-y-48">
             <cl-input :value="userInfo.username" :label="'账号'"/>
             <cl-input :value="userInfo.password" :label="'密码'"/>
-            <cl-button :loading="true" />
+            <cl-button :loading="loading" @click="handleClick">
+                登陆
+            </cl-button>
         </section>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import CLInput from '../../../components/Input/mobile.vue'
 import CLButton from '../../../components/Button/LoginButton.vue'
 
@@ -23,7 +25,14 @@ export default defineComponent({
             username:'',
             password:''
         });
-        return {userInfo}
+        const loading = ref(false);
+        const handleClick = () => {
+            loading.value = true;
+            setTimeout(()=>{
+                loading.value = false
+            }, 3000)
+        }
+        return {userInfo,loading,handleClick}
     },
 })
 </script>
