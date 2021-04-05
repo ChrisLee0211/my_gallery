@@ -1,11 +1,7 @@
 <template>
-    <div class="relative" :style="baseSyleSize">
-        <div 
-        :class="`absolute inset-0 rounded z-10 ${activeClass}`"
-        :style="baseSyleSize">
-        </div>
+    <div :class="`relative flex items-center justify-center box-content p-2 ${activeClass}`">
         <div
-            :class="`absolute inset-2 cursor-pointer z-20 rounded flex items-center justify-center bg-indigo-700 shadow-md text-white`"
+            :class="`py-2 px-6 rounded flex items-center justify-center bg-indigo-700 shadow-md text-white`"
         >
             <slot />
         </div>
@@ -37,21 +33,19 @@ export default defineComponent({
     setup(props, ctx) {
         const activeClass = computed(() => {
             if (props.loading) return 'login-btn-active'
-            return 'login-btn'
+            return ''
         });
-        const baseSyleSize = computed(() => {
-            return `width:${parseInt(props.width)+15}px;height:${parseInt(props.height)+15}px`
-        })
-        return { activeClass,baseSyleSize }
+        return { activeClass }
     },
 })
 </script>
 <style>
-.login-btn {
-    padding: 10px;
-}
-.login-btn-active {
+.login-btn-active:after {
+    content:'';
+    position: absolute;
     border: 2px solid lightblue;
+    border-radius: 0.25rem;
+    top:0px;left:0px;right:0px;bottom: 0px;
     animation: broderAround 2s linear 0s infinite normal;
 }
 
