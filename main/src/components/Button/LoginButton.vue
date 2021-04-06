@@ -1,14 +1,15 @@
 <template>
-    <div :class="`relative flex items-center justify-center box-content p-2 ${activeClass}`">
+    <div :class="`relative flex items-center justify-center box-content p-2 ${activeClass}`" @touchstart="onTouchStart">
         <div
-            :class="`py-2 px-6 rounded flex items-center justify-center bg-indigo-700 shadow-md text-white`"
+            :class="`${paddingSize} rounded flex items-center justify-center bg-indigo-700 shadow-md text-white ${toggleClass}`"
         >
             <slot />
         </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue';
+import { sizeMap } from '../constant';
 
 export default defineComponent({
     name: 'login-button',
@@ -19,15 +20,15 @@ export default defineComponent({
         },
         width: {
             type: String,
-            default: '120px'
+            default: undefined
         },
         height: {
             type: String,
-            default: "30px",
+            default: undefined,
         },
         size: {
             type: String,
-            default: 'small'
+            default: 'medium'
         }
     },
     setup(props, ctx) {
@@ -35,7 +36,20 @@ export default defineComponent({
             if (props.loading) return 'login-btn-active'
             return ''
         });
-        return { activeClass }
+        const paddingSize = computed(() => {
+            if(props.width || props.height) return '';
+            const paddingMap = sizeMap.padding;
+
+            return sizeMap.padding[(props.size as keyof typeof paddingMap)]
+        });
+        const toggleClass = ref('');
+        const onTouchStart = () => {
+            toggleClass.value = 'login-btn-toggle';
+            setTimeout(() => {
+                toggleClass.value = ''
+            },800)
+        }
+        return { activeClass, toggleClass, paddingSize, onTouchStart }
     },
 })
 </script>
@@ -64,6 +78,25 @@ export default defineComponent({
     }
     100% {
         clip-path: circle(40% at 0 0);
+    }
+}
+
+.login-btn-toggle {
+    animation: toggle .5s linear;
+}
+
+@keyframes toggle {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
     }
 }
 </style>
