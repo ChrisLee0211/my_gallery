@@ -58,6 +58,7 @@ export default defineComponent({
     content:'';
     position: absolute;
     border: 2px solid lightblue;
+    
     border-radius: 0.25rem;
     top:0px;left:0px;right:0px;bottom: 0px;
     animation: broderAround 2s linear 0s infinite normal;

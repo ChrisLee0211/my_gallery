@@ -1,8 +1,8 @@
 <template>
     <input 
-        class="rounded focus:ring-2 focus:ring-indigo-300 shadow-md w-80 h-9 px-4 box-border" 
+        class="rounded focus:ring-blue-500 shadow-md w-80 h-9 px-4 box-border" 
         v-model="value"
-        :placeholder="label"
+        :placeholder="placeholder"
         />
 </template>
 <script lang="ts">
@@ -15,9 +15,13 @@ export default defineComponent({
             type:String,
             default:''
         },
-        label:{
+        placeholder:{
             type:String,
             default:''
+        },
+        size:{
+            type:String,
+            default:'small'
         }
     },
     setup(props,ctx) {
