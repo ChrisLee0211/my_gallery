@@ -1,8 +1,12 @@
 <template>
     <div class="fixed inset-0 w-screen h-screen flex justify-center items-center bgAnimate" >
         <section class="flex flex-col justify-between items-center space-y-6 transform -translate-y-48">
-            <cl-input :value="userInfo.username" :label="'账号'"/>
-            <cl-input :value="userInfo.password" :label="'密码'"/>
+            <cl-input :value="userInfo.username">
+                <template v-slot:prefix>
+                    <div>账号</div>
+                </template>
+            </cl-input>
+            <cl-input :value="userInfo.password" :placeholder="'密码'"/>
             <cl-button :loading="loading" @click="handleClick">
                 登陆
             </cl-button>
