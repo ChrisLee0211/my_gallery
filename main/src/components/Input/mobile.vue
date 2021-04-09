@@ -1,17 +1,16 @@
 <template>
-    <div :class="`relative rounded ${focusClass}`">
-        <div class="absolute z-10">
+    <div :class="`relative rounded ${focusClass}`" @touchstart="handleFocus">
+        <div :class="`transition-all absolute top-1/2 transform -translate-y-1/2 ${prefixClass}`">
             <slot name="prefix" />
         </div>
         <input 
             ref="inputRef"
-            :class="`rounded z-0 ${inputClass}`"
+            :class="`rounded pl-2 ${inputClass} focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
-            v-model="value"
-            v-bind="$attrs"
+            v-model="inputVal"
             @focus="onFocus"
             @blur="onBlur"
-            @change="onChange"
+            @input="onChange"
             />
     </div>
 </template>
@@ -22,7 +21,7 @@ import {sizeMap} from '../constant'
 export default defineComponent({
     name:"InputMpbile",
     props:{
-        value:{
+        initValue:{
             type:String,
             default:''
         },
@@ -33,24 +32,52 @@ export default defineComponent({
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
+        const isFocus = ref(false);    
         const focusClass = ref('')
+        const inputVal = ref();
         onMounted(() => {
-
+            if(props.initValue.length > 0){
+                isFocus.value = true
+                inputVal.value = props.initValue;
+            }
         })
         const inputClass = computed(() => {
             const inputSizeMap = sizeMap.input;
             return sizeMap.input[(props.size as keyof typeof inputSizeMap)]
         })
+        const prefixClass = computed(() => {
+            return isFocus.value ? '-left-10' : 'left-4'
+        })
         const onFocus = (event:FocusEvent) => {
+            isFocus.value = true;
             ctx.emit('onFoucs',event)
         };
         const onBlur = (event:FocusEvent) => {
+            isFocus.value = inputVal.value.length > 0
             ctx.emit('onBlur',event)
         }
         const onChange = (event:Event) => {
             ctx.emit('onChange', event)
         }
-        return {onFocus, onBlur, onChange, focusClass, inputRef, inputClass}
+        const handleFocus = () => {
+            try{
+                inputRef.value?.focus();
+                isFocus.value = true
+            }catch(e){
+                console.error(e)
+            }
+        }
+        return {
+            onFocus, 
+            onBlur, 
+            onChange,
+            handleFocus,
+            focusClass, 
+            inputRef, 
+            inputClass,
+            prefixClass,
+            inputVal
+        }
     },
 })
 </script>
