@@ -34,7 +34,7 @@ export default defineComponent({
         const inputRef = ref<HTMLInputElement>()
         const isFocus = ref(false);    
         const focusClass = ref('')
-        const inputVal = ref();
+        const inputVal = ref('');
         onMounted(() => {
             if(props.initValue.length > 0){
                 isFocus.value = true
