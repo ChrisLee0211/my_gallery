@@ -1,7 +1,7 @@
 <template>
     <div class="fixed inset-0 w-screen h-screen flex justify-center items-center bgAnimate" >
         <section class="flex flex-col justify-between items-center space-y-6 transform -translate-y-48">
-            <section class="my-2 font-mono text-lg antialiased font-extrabold text-gray-600">
+            <section class="my-2 font-mono text-lg antialiased font-extrabold text-white">
                 <p>Hi~ Chris!</p>
                 <p>Long time no see!</p>
             </section>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="`relative rounded ${focusClass}`" @touchstart="handleFocus">
+    <div :class="`relative rounded`" @touchstart="handleFocus">
         <div :class="`transition-all absolute top-1/2 transform -translate-y-1/2 ${prefixClass}`">
             <slot name="prefix" />
         </div>
@@ -8,6 +8,7 @@
             :class="`rounded pl-2 ${inputClass} focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
             v-model="inputVal"
+            :type="type"
             @focus="onFocus"
             @blur="onBlur"
             @input="onChange"
@@ -19,7 +20,7 @@ import { defineComponent, computed, ref, onMounted } from 'vue'
 import {sizeMap} from '../constant'
 
 export default defineComponent({
-    name:"InputMpbile",
+    name:"InputMobile",
     props:{
         initValue:{
             type:String,
@@ -28,12 +29,16 @@ export default defineComponent({
         size:{
             type:String,
             default:'large'
+        },
+        //text | number | email | password
+        type: {
+            type:String,
+            default:'text',
         }
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
         const isFocus = ref(false);    
-        const focusClass = ref('')
         const inputVal = ref('');
         onMounted(() => {
             if(props.initValue.length > 0){
@@ -72,7 +77,6 @@ export default defineComponent({
             onBlur, 
             onChange,
             handleFocus,
-            focusClass, 
             inputRef, 
             inputClass,
             prefixClass,
