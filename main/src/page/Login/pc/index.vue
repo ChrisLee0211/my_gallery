@@ -16,22 +16,27 @@
                 </cl-input>
             </div>
             <div class=" w-3/5 my-2 flex items-center justify-center">
-               按钮
+               <cl-button :loading="loading" :size="'large'" style="cursor:pointed">
+                   登陆
+               </cl-button>
             </div>
         </section>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import clInput from '../../../components/Input/pc.vue'
+import clButton from '../../../components/Button/LoginButton.vue'
 
 export default defineComponent({
     name:'PcLogin',
     components:{
         'cl-input': clInput,
+        'cl-button': clButton
     },
     setup() {
-        
+        const loading = ref(false);
+        return {loading}
     },
 })
 </script>
