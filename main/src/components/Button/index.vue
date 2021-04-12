@@ -1,18 +1,22 @@
 <template>
-    <div :class="`rounded cursor-pointer ${baseClass}`">
+    <div :class="`cursor-pointer flex items-center justify-center ${color} ${baseClass} ${loadingClass}`">
         <div v-if="!loading">
             <slot />
         </div>
-        <div v-else>
-            loading~
+        <div class="animate-spin" v-else>
+            <loading-icon :width="'30'" :height="'30'" />
         </div>
     </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue';
+import LoadingIcon from '../Icon/Loading.vue';
 
 export default defineComponent({
     name: 'clButton',
+    components: {
+        'loading-icon':LoadingIcon
+    },
     props:{
         loading:{
             type:Boolean,
@@ -20,7 +24,7 @@ export default defineComponent({
         },
         color:{
             type:String,
-            default:''
+            default:'bg-indigo-500'
         },
         size:{
             type:String,
@@ -31,8 +35,11 @@ export default defineComponent({
         const baseClass = computed(() => {
             return ''
         });
+        const loadingClass = computed(() => {
+            return props.loading ? 'rounded-full'  : 'rounded'
+        });
 
-        return {baseClass}
+        return {baseClass, loadingClass}
     },
 })
 </script>

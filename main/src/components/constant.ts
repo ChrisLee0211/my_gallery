@@ -9,6 +9,7 @@ const sizeMap = {
         medium: 'w-48  h-8',
         large: 'w-56 h-10'
     }
+
 }
 
 export {sizeMap}

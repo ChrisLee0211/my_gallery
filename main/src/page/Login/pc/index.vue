@@ -16,7 +16,7 @@
                 </cl-input>
             </div>
             <div class=" w-3/5 my-2 flex items-center justify-center">
-               <cl-button :loading="loading" :size="'large'" style="cursor:pointed">
+               <cl-button @click="handleClick" :loading="loading" :size="'large'">
                    登陆
                </cl-button>
             </div>
@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import clInput from '../../../components/Input/pc.vue'
-import clButton from '../../../components/Button/LoginButton.vue'
+import clButton from '../../../components/Button/index.vue'
 
 export default defineComponent({
     name:'PcLogin',
@@ -36,7 +36,13 @@ export default defineComponent({
     },
     setup() {
         const loading = ref(false);
-        return {loading}
+        const handleClick = () => {
+            loading.value = true;
+            // setTimeout(() => {
+            //     loading.value = false
+            // },3000)
+        }
+        return {loading, handleClick}
     },
 })
 </script>
