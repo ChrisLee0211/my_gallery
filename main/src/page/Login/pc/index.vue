@@ -1,5 +1,9 @@
 <template>
-    <div class="w-screen h-screen flex justify-center items-center bgAnimate">
+    <div class="w-screen h-screen flex justify-center items-center flex-col bgAnimate">
+        <section class="my-2 font-mono text-lg antialiased font-extrabold text-white">
+                <p>Hi~ Chris!</p>
+                <p>Long time no see!</p>
+            </section>
         <section class=" rounded w-96 h-1/3 shadow-xl bg-filter flex items-center justify-center flex-col">
             <div class=" w-3/5 my-2">
                 <cl-input >
