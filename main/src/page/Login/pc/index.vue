@@ -38,9 +38,9 @@ export default defineComponent({
         const loading = ref(false);
         const handleClick = () => {
             loading.value = true;
-            // setTimeout(() => {
-            //     loading.value = false
-            // },3000)
+            setTimeout(() => {
+                loading.value = false
+            },3000)
         }
         return {loading, handleClick}
     },
