@@ -1,6 +1,11 @@
 <template>
+    <transition
+      enter-active-class="animated bounceInLeft"
+      leave-active-class="animated bounceOutLeft"
+    >
     <login-pc v-if="isPC" />
-    <login-mobile v-else />
+    </transition>
+    <login-mobile v-if="!isPC" />
 </template>
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
