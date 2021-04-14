@@ -1,8 +1,6 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center flex-col bgAnimate">
-    
       <section
-        class="rounded w-96 h-1/3 shadow-xl bg-filter flex items-center justify-center flex-col"
+        :class="`rounded w-96 h-1/3 shadow-xl bg-filter flex items-center justify-center flex-col`"
       >
         <section class="my-2 font-mono text-lg antialiased font-extrabold text-white">
           <p>Hi~ Chris!</p>
@@ -22,7 +20,6 @@
           <cl-button @click="handleClick" :loading="loading" :size="'large'"> 登陆 </cl-button>
         </div>
       </section>
-  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'

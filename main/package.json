@@ -6,7 +6,6 @@
     "build": "vite build"
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
     "vue": "^3.0.4",
     "vue-router": "^4.0.5",
     "vuex": "^4.0.0"
