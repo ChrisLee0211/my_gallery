@@ -38,7 +38,7 @@ export default defineComponent({
     const handleClick = () => {
       loading.value = true;
       const worker = new WorkerCreator();
-      worker.run((data:any) => {
+      worker.run<{val:number}>((data) => {
         console.log('data',data);
         const val = data.val;
         return val + 10
