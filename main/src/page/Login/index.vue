@@ -1,12 +1,13 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center bgAnimate">
-        <login-pc v-if="isPC" />
-        <login-mobile v-else />
+        <login-pc :loading="loginLoading" @loginMethod="handleLogin" v-if="isPC" />
+        <login-mobile :loading="loginLoading" @loginMethod="handleLogin" v-else />
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
-import { useStore } from '../../store/index'
+import { defineComponent, computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from '../../store/index';
 import LoginPc from './pc/index.vue';
 import LoginMobile from './mobile/index.vue';
 export default defineComponent({
@@ -18,10 +19,20 @@ export default defineComponent({
     },
     setup() {
         const store = useStore();
+        const router = useRouter();
         const isPC = computed(() => {
             return store.state.deviceType === 'pc'
         })
-        return { isPC }
+        const loginLoading = ref(false)
+        const handleLogin = (username:string, password:string) => {
+            loginLoading.value = true;
+            store.dispatch('login/loginRequest',{username,password});
+            setTimeout(() => {
+                loginLoading.value = false;
+                router.push({name:'Home'})
+            })
+        }
+        return { isPC, handleLogin, loginLoading }
     },
 })
 </script>

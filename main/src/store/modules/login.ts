@@ -14,7 +14,9 @@ const loginState:Module<LoginType,rootState> = {
         }
     },
     actions: {
-      
+      loginRequest({commit}, loginInfo:{username:string,password:string}){
+        commit("SET_LOGIN_STATUS", true)
+      }
     },
     getters: { 
         

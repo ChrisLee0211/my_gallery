@@ -16,7 +16,7 @@
                 </template>
             </cl-input>
             <cl-button :loading="loading" @click="handleClick">
-                登陆
+                进入
             </cl-button>
         </section>
 </template>

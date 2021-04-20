@@ -7,7 +7,7 @@
             ref="inputRef"
             :class="`rounded pl-2 ${inputClass} focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
-            v-model="inputVal"
+            v-model="value"
             :type="type"
             @focus="onFocus"
             @blur="onBlur"
@@ -16,34 +16,46 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from 'vue'
+import { defineComponent, computed, ref, onMounted, ComputedRef,Ref } from 'vue'
 import {sizeMap} from '../constant'
+
+interface propsType {
+    value:string,
+    size: 'large' | 'medium' | 'small',
+    type: 'text' | 'number' | 'email' | 'password'
+}
+
+interface setupType {
+    onFocus:(e:FocusEvent)=>void
+    onBlur:(e:FocusEvent)=>void
+    onChange:(e:Event)=>void
+    handleFocus:()=>void
+    inputClass:ComputedRef<string>
+    prefixClass:ComputedRef<string>
+}
 
 export default defineComponent({
     name:"InputMobile",
     props:{
-        initValue:{
+        value:{
             type:String,
             default:''
         },
         size:{
             type:String,
-            default:'large'
+            default:'meduim',
         },
-        //text | number | email | password
-        type: {
+        type:{
             type:String,
-            default:'text',
+            default:'text'
         }
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
         const isFocus = ref(false);    
-        const inputVal = ref('');
         onMounted(() => {
-            if(props.initValue.length > 0){
+            if( props.value && props.value.length > 0){
                 isFocus.value = true
-                inputVal.value = props.initValue;
             }
         })
         const inputClass = computed(() => {
@@ -58,7 +70,7 @@ export default defineComponent({
             ctx.emit('onFoucs',event)
         };
         const onBlur = (event:FocusEvent) => {
-            isFocus.value = inputVal.value.length > 0
+            isFocus.value = props.value.length > 0
             ctx.emit('onBlur',event)
         }
         const onChange = (event:Event) => {
@@ -80,7 +92,6 @@ export default defineComponent({
             inputRef, 
             inputClass,
             prefixClass,
-            inputVal
         }
     },
 })
