@@ -1,18 +1,18 @@
 <template>
     <div 
-        :class="`relative rounded`" 
+        :class="`relative rounded ${inputClass}`" 
         @click="handleFocus"
         @mouseenter="enter"
         @mouseleave="leave"
         >
-        <div :class="`transition-all absolute top-1/2 transform -translate-y-1/2 ${prefixClass}`">
+        <div :class="`transition-all absolute top-1/2 z-10 transform -translate-y-1/2 ${prefixClass}`">
             <slot name="prefix" />
         </div>
         <input 
             ref="inputRef"
-            :class="`rounded pl-2 ${inputClass} focus:outline-none focus:ring focus:border-blue-300`"
+            :class="`w-full rounded pl-2 absolute inset-0 z-0 focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
-            v-model="value"
+            v-model="inputVal"
             @focus="onFocus"
             @blur="onBlur"
             @input="onChange"
@@ -21,7 +21,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed, ComputedRef } from 'vue'
+import { defineComponent, ref, onMounted, computed, ComputedRef, watchEffect } from 'vue'
 import {sizeMap} from '../constant'
 
 // interface propsType {
@@ -44,7 +44,7 @@ import {sizeMap} from '../constant'
 export default defineComponent({
     name:'InputPc',
     props:{
-        value:{
+        initVal:{
             type:String,
             default:''
         },
@@ -59,11 +59,16 @@ export default defineComponent({
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
-        const isFocus = ref(false);   
+        const isFocus = ref(false);  
+        const inputVal = ref(''); 
         onMounted(() => {
-            if( props.value && props.value.length > 0){
+            if( props.initVal && props.initVal.length > 0){
+                inputVal.value = props.initVal;
                 isFocus.value = true
             }
+        })
+        watchEffect(() => {
+            inputVal.value = props.initVal;
         })
         const inputClass = computed(() => {
             const inputSizeMap = sizeMap.input;
@@ -77,7 +82,7 @@ export default defineComponent({
             ctx.emit('onFoucs',event)
         };
         const onBlur = (event:FocusEvent) => {
-            isFocus.value = props.value.length > 0
+            isFocus.value = inputVal.value.length > 0
             ctx.emit('onBlur',event)
         }
         const onChange = (event:Event) => {
@@ -95,7 +100,7 @@ export default defineComponent({
             isFocus.value = true;
         }
         const leave = () => {
-            isFocus.value = props.value.length > 0
+            isFocus.value = inputVal.value.length > 0
         }
         return {
             onFocus, 
@@ -105,6 +110,7 @@ export default defineComponent({
             enter,
             leave,
             inputRef, 
+            inputVal,
             inputClass,
             prefixClass,
         }

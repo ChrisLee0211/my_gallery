@@ -6,13 +6,13 @@
           <p>Hi~ Chris!</p>
           <p>Long time no see!</p>
         </section>
-        <div class="w-3/5 my-2">
+        <div class="w-3/5 my-2 flex justify-center">
           <cl-input :value="username">
             <template v-slot:prefix> 账号 </template>
           </cl-input>
         </div>
-        <div class="w-3/5 my-2">
-          <cl-input :type="'password'" :value="password" size="meduim">
+        <div class="w-3/5 my-2 flex justify-center">
+          <cl-input :type="'password'" :value="password" >
             <template v-slot:prefix> 密码 </template>
           </cl-input>
         </div>

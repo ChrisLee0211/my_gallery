@@ -7,7 +7,7 @@ const sizeMap = {
     input:{
         small: 'w-40 h-6',
         medium: 'w-48  h-8',
-        large: 'w-56 h-10'
+        large: 'w-56 h-10',
     }
 
 }
