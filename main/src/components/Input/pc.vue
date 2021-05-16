@@ -12,7 +12,7 @@
             ref="inputRef"
             :class="`w-full rounded pl-2 absolute inset-0 z-0 focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
-            v-model="inputVal"
+            :value="value"
             @focus="onFocus"
             @blur="onBlur"
             @input="onChange"
@@ -44,10 +44,6 @@ import {sizeMap} from '../constant'
 export default defineComponent({
     name:'InputPc',
     props:{
-        initVal:{
-            type:String,
-            default:''
-        },
         size:{
             type:String,
             default:'large',
@@ -55,20 +51,19 @@ export default defineComponent({
         type:{
             type:String,
             default:'text'
+        },
+        value:{
+            type:String,
+            default:''
         }
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
         const isFocus = ref(false);  
-        const inputVal = ref(''); 
         onMounted(() => {
-            if( props.initVal && props.initVal.length > 0){
-                inputVal.value = props.initVal;
+            if( props.value && props.value.length > 0){
                 isFocus.value = true
             }
-        })
-        watchEffect(() => {
-            inputVal.value = props.initVal;
         })
         const inputClass = computed(() => {
             const inputSizeMap = sizeMap.input;
@@ -82,11 +77,13 @@ export default defineComponent({
             ctx.emit('onFoucs',event)
         };
         const onBlur = (event:FocusEvent) => {
-            isFocus.value = inputVal.value.length > 0
+            isFocus.value = props.value.length > 0
             ctx.emit('onBlur',event)
         }
         const onChange = (event:Event) => {
-            ctx.emit('onChange', event)
+            ctx.emit('onChange', event);
+            const inputEle = event.target as HTMLInputElement
+            ctx.emit('update:value',inputEle.value)
         }
         const handleFocus = () => {
             try{
@@ -100,7 +97,7 @@ export default defineComponent({
             isFocus.value = true;
         }
         const leave = () => {
-            isFocus.value = inputVal.value.length > 0
+            isFocus.value = props.value.length > 0
         }
         return {
             onFocus, 
@@ -110,7 +107,6 @@ export default defineComponent({
             enter,
             leave,
             inputRef, 
-            inputVal,
             inputClass,
             prefixClass,
         }

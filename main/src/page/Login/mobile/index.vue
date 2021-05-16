@@ -5,12 +5,12 @@
                 <p>Hi~ Chris!</p>
                 <p>Long time no see!</p>
             </section>
-            <cl-input :value="userInfo.username">
+            <cl-input v-model:value="userInfo.username">
                 <template v-slot:prefix>
                     <div>账号</div>
                 </template>
             </cl-input>
-            <cl-input :value="userInfo.password" >
+            <cl-input v-model:value="userInfo.password" type="password">
                 <template v-slot:prefix>
                     <div>密码</div>
                 </template>
@@ -21,7 +21,7 @@
         </section>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 import CLInput from '../../../components/Input/mobile.vue'
 import CLButton from '../../../components/Button/LoginButton.vue'
 

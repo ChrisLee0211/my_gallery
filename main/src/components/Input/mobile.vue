@@ -7,7 +7,7 @@
             ref="inputRef"
             :class="`absolute inset-0 w-full z-0 rounded pl-2 focus:outline-none focus:ring focus:border-blue-300`"
             style="outline:none"
-            v-model="inputVal"
+            :value="value"
             :type="type"
             @focus="onFocus"
             @blur="onBlur"
@@ -37,31 +37,26 @@ interface setupType {
 export default defineComponent({
     name:"InputMobile",
     props:{
-        initVal:{
-            type:String,
-            default:''
-        },
         size:{
             type:String,
-            default:'medium',
+            default:'large',
         },
         type:{
             type:String,
             default:'text'
+        },
+        value:{
+            type:String,
+            default:''
         }
     },
     setup(props,ctx) {
         const inputRef = ref<HTMLInputElement>()
         const isFocus = ref(false);    
-        const inputVal = ref('');
         onMounted(() => {
-            if( props.initVal && props.initVal.length > 0){
+            if( props.value && props.value.length > 0){
                 isFocus.value = true
-                inputVal.value = props.initVal
             }
-        })
-        watchEffect(() => {
-            inputVal.value = props.initVal;
         })
         const inputClass = computed(() => {
             const inputSizeMap = sizeMap.input;
@@ -75,11 +70,13 @@ export default defineComponent({
             ctx.emit('onFoucs',event)
         };
         const onBlur = (event:FocusEvent) => {
-            isFocus.value = inputVal.value.length > 0
+            isFocus.value = props.value.length > 0
             ctx.emit('onBlur',event)
         }
         const onChange = (event:Event) => {
-            ctx.emit('onChange', event)
+            ctx.emit('onChange', event);
+            const inputEle = event.target as HTMLInputElement
+            ctx.emit('update:value',inputEle.value)
         }
         const handleFocus = () => {
             try{
@@ -95,7 +92,6 @@ export default defineComponent({
             onChange,
             handleFocus,
             inputRef, 
-            inputVal,
             inputClass,
             prefixClass,
         }

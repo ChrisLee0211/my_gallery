@@ -7,7 +7,7 @@
           <p>Long time no see!</p>
         </section>
         <div class="w-3/5 my-2 flex justify-center">
-          <cl-input :value="username">
+          <cl-input v-model:value="username">
             <template v-slot:prefix> 账号 </template>
           </cl-input>
         </div>
@@ -26,28 +26,39 @@ import { defineComponent, ref, Ref } from 'vue'
 import clInput from '../../../components/Input/pc.vue'
 import clButton from '../../../components/Button/index.vue'
 
-interface propsType {
-  loading:boolean
-  loginMethod:(usename:string,password:string)=>void
-}
+// interface propsType {
+//   loading:boolean
+//   loginMethod:(usename:string,password:string)=>void
+// }
 
-interface setupType {
-  handleClick:()=>void,
-  username:Ref<string>,
-  password:Ref<string>,
-}
+// interface setupType {
+//   handleClick:()=>void,
+//   username:Ref<string>,
+//   password:Ref<string>,
+// }
 
-export default defineComponent<propsType, setupType>({
+export default defineComponent({
   name: 'PcLogin',
+  props:{
+    loading:{
+      default:false,
+      type:Boolean,
+    },
+    loginMethod: {
+      default:()=>{},
+      type:Function,
+    }
+  },
   components: {
     'cl-input': clInput,
     'cl-button': clButton
   },
   setup(props,ctx) {
     
-    const username = ref('')
+    const username = ref('user')
     const password = ref('')
     const handleClick = () => {
+      console.log('username.value', username.value)
       props.loginMethod(username.value,password.value)
     }
     return {handleClick,username, password }

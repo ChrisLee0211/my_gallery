@@ -1,7 +1,14 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center bgAnimate">
-        <login-pc :loading="loginLoading" @loginMethod="handleLogin" v-if="isPC" />
-        <login-mobile :loading="loginLoading" @loginMethod="handleLogin" v-else />
+        <login-pc 
+        :loading="loginLoading" 
+        title="set"
+        @loginMethod="handleLogin" 
+        v-if="isPC" />
+        <login-mobile 
+        :loading="loginLoading" 
+        @loginMethod="handleLogin" 
+        v-else />
     </div>
 </template>
 <script lang="ts">
