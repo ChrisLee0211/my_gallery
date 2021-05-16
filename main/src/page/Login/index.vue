@@ -17,6 +17,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from '../../store/index';
 import LoginPc from './pc/index.vue';
 import LoginMobile from './mobile/index.vue';
+
 export default defineComponent({
     name: 'Login',
     components: {
@@ -31,9 +32,9 @@ export default defineComponent({
             return store.state.deviceType === 'pc'
         })
         const loginLoading = ref(false)
-        const handleLogin = (username:string, password:string) => {
+        const handleLogin = (useInfo:{username:string, password:string}) => {
             loginLoading.value = true;
-            store.dispatch('login/loginRequest',{username,password});
+            store.dispatch('login/loginRequest',useInfo);
             setTimeout(() => {
                 loginLoading.value = false;
                 router.push({name:'Home'})

@@ -12,7 +12,7 @@
           </cl-input>
         </div>
         <div class="w-3/5 my-2 flex justify-center">
-          <cl-input :type="'password'" :value="password" >
+          <cl-input :type="'password'"  v-model:value="password" >
             <template v-slot:prefix> 密码 </template>
           </cl-input>
         </div>
@@ -25,17 +25,6 @@
 import { defineComponent, ref, Ref } from 'vue'
 import clInput from '../../../components/Input/pc.vue'
 import clButton from '../../../components/Button/index.vue'
-
-// interface propsType {
-//   loading:boolean
-//   loginMethod:(usename:string,password:string)=>void
-// }
-
-// interface setupType {
-//   handleClick:()=>void,
-//   username:Ref<string>,
-//   password:Ref<string>,
-// }
 
 export default defineComponent({
   name: 'PcLogin',
@@ -54,12 +43,10 @@ export default defineComponent({
     'cl-button': clButton
   },
   setup(props,ctx) {
-    
     const username = ref('user')
     const password = ref('')
     const handleClick = () => {
-      console.log('username.value', username.value)
-      props.loginMethod(username.value,password.value)
+      ctx.emit('loginMethod',{username:username.value, password:password.value})
     }
     return {handleClick,username, password }
   }

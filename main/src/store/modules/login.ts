@@ -5,6 +5,7 @@ export interface LoginType {
 }
 
 const loginState:Module<LoginType,rootState> = {
+    namespaced:true,
     state: () => ({
         isLogin: false,
     }),
