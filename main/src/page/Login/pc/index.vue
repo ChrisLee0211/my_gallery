@@ -33,17 +33,13 @@ export default defineComponent({
       default:false,
       type:Boolean,
     },
-    loginMethod: {
-      default:()=>{},
-      type:Function,
-    }
   },
   components: {
     'cl-input': clInput,
     'cl-button': clButton
   },
   setup(props,ctx) {
-    const username = ref('user')
+    const username = ref('')
     const password = ref('')
     const handleClick = () => {
       ctx.emit('loginMethod',{username:username.value, password:password.value})

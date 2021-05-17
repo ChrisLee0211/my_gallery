@@ -31,19 +31,21 @@ export default defineComponent({
         "cl-input":CLInput,
         "cl-button":CLButton,
     },
-    setup() {
+    props:{
+        loading:{
+        default:false,
+        type:Boolean,
+        },
+  },
+    setup(props,ctx) {
         const userInfo = reactive({
             username:'',
             password:''
         });
-        const loading = ref(false);
         const handleClick = () => {
-            loading.value = true;
-            setTimeout(()=>{
-                loading.value = false
-            }, 3000)
+            ctx.emit('loginMethod',userInfo)
         }
-        return {userInfo,loading,handleClick}
+        return {userInfo,handleClick}
     },
 })
 </script>
