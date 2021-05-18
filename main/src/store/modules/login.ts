@@ -1,6 +1,6 @@
 import {Module} from 'vuex';
 import {rootState} from '../index';
-import Crypto from 'crypto-js/core';
+import Crypto from 'crypto-js';
 export interface LoginType {
     isLogin:boolean
 }
