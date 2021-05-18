@@ -4,6 +4,9 @@ export default {
   alias: {
     '@': resolve(__dirname, 'src')
   },
+  optimizeDeps:{
+    // exclude:['crypto-js']
+  },
   plugins: [
     VitePWA({
         manifest: {

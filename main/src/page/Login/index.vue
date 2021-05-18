@@ -34,11 +34,14 @@ export default defineComponent({
         const loginLoading = ref(false)
         const handleLogin = (useInfo:{username:string, password:string}) => {
             loginLoading.value = true;
-            store.dispatch('login/loginRequest',useInfo);
-            setTimeout(() => {
-                loginLoading.value = false;
-                router.push({name:'Home'})
-            })
+            store.dispatch('login/loginRequest',useInfo).then((res:number) => {
+                if (res === 200){
+                    setTimeout(() => {
+                        loginLoading.value = false;
+                        router.push({name:'Home'})
+                    },2000)
+                }
+            });
         }
         return { isPC, handleLogin, loginLoading }
     },
