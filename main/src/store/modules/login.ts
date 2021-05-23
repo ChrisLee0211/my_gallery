@@ -29,8 +29,9 @@ const loginState:Module<LoginType,rootState> = {
           const validUser = Object.keys(fakeUser);
           if(validUser.includes(username)){
             const userPwd = fakeUser[(username as keyof typeof fakeUser)];
-            const secretPwd = Crypto.AES.encrypt(password,secretKey);
-            if (secretPwd === Crypto.AES.encrypt(userPwd,secretKey)){
+            const userPwdAES = Crypto.AES.encrypt(userPwd,secretKey)
+            const secretPwdAES = Crypto.AES.encrypt(password,secretKey);
+            if (Crypto.AES.decrypt(secretPwdAES,secretKey).toString === Crypto.AES.decrypt(userPwdAES,secretKey).toString){
               commit("SET_LOGIN_STATUS", true)
               resolve(200)
             }else{
