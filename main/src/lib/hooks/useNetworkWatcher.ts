@@ -1,4 +1,4 @@
-import {onMounted, onUnmounted, Ref, ref,watch, watchEffect} from 'vue';
+import {computed, onMounted, onUnmounted, Ref, ref,watch, watchEffect} from 'vue';
 
 type EffectiveType = 'slow-2g' |'2g'|'3g' | '4g'
 
@@ -40,30 +40,35 @@ const useNetworkWatcher = (config?:hookConfig):hookReturnType => {
         offset = config.offset || time
     }
     const online = ref(curNavigator.onLine);
-    const speedObserver = ref(connection?.downlink||0);
-    const speed = ref(connection?.downlink||0)
+    const speed = ref(connection?.downlink||0);
+    const isSupport = (con:NavConnection,val:any):val is number  => {
+        const keys = Object.keys(con);
+        if (keys.includes('downlink')){
+            return true
+        }
+        return false
+    }
     const intervalTimer = ref<number>();
     const onlineHandler = () => {
         online.value = true;
         if (!intervalTimer.value){
             intervalTimer.value = window.setInterval(()=>{
-                speedObserver.value = connection.downlink || 0;
+                const curDownLinkSpeed = connection.downlink;
+                if (isSupport(connection,curDownLinkSpeed)){
+                    if (Math.abs(Number(curDownLinkSpeed) - Number(speed.value)) >= offset){
+                        speed.value = curDownLinkSpeed
+                    }
+                }
             },time)
         }
     }
     const offlineHandler = () => {
         online.value = false;
-        speedObserver.value = 0;
         speed.value = 0;
         if (intervalTimer.value){
             clearInterval(intervalTimer.value);
         }
     }
-    watch(speedObserver,(cur,prev) => {
-        if ((Number(prev) - Number(cur)) >= offset ){
-            speed.value = cur;
-        }
-    })
     onMounted(() => {
         window.addEventListener('online',onlineHandler)
         window.addEventListener('offline',offlineHandler)
