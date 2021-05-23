@@ -24,13 +24,19 @@ interface hookConfig {
 }
 
 interface hookReturnType {
+    /** 当前是否联网 */
     online: Ref<boolean>,
+    /** 当前连接下行速度 */
     speed:Ref<number>,
+    /** 当前浏览器是否可用该监测hook */
+    enable:Ref<boolean>
 }
 const useNetworkWatcher = (config?:hookConfig):hookReturnType => {
     const curNavigator = navigator as NavigatorConObject;
     const connection:NavConnection | null = curNavigator.connection || curNavigator.mozConnection || curNavigator.webkitConnection;
+    const enable = ref(true);
     if (connection === null) {
+        enable.value = false;
         console.error('Current browser do not support this hook, please use chrome or other browser!')
     }
     let time = 500;
@@ -70,17 +76,20 @@ const useNetworkWatcher = (config?:hookConfig):hookReturnType => {
         }
     }
     onMounted(() => {
+        if (enable.value === false) return
         window.addEventListener('online',onlineHandler)
         window.addEventListener('offline',offlineHandler)
     })
     onUnmounted(() => {
+        if (enable.value === false) return
         window.removeEventListener('online',onlineHandler)
         window.removeEventListener('offline',offlineHandler)
     })
 
      return {
          online:online,
-         speed:speed
+         speed:speed,
+         enable:enable,
      }
 }
 
