@@ -22,9 +22,10 @@
       </section>
 </template>
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue'
+import { defineComponent, ref, Ref, watch } from 'vue'
 import clInput from '../../../components/Input/pc.vue'
 import clButton from '../../../components/Button/index.vue'
+import {useNetworkWatcher} from '../../../lib/hooks/useNetworkWatcher';
 
 export default defineComponent({
   name: 'PcLogin',
@@ -44,6 +45,13 @@ export default defineComponent({
     const handleClick = () => {
       ctx.emit('loginMethod',{username:username.value, password:password.value})
     }
+    const {online,speed} = useNetworkWatcher();
+    watch(online,(cur) =>{
+      console.log('当前网络状态',cur)
+    })
+    watch(speed,(cur) =>{
+      console.log('当前网络速度',cur)
+    })
     return {handleClick,username, password }
   }
 })

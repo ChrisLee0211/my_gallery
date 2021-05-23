@@ -35,6 +35,7 @@ export default defineComponent({
         const handleLogin = (useInfo:{username:string, password:string}) => {
             loginLoading.value = true;
             store.dispatch('login/loginRequest',useInfo).then((res:number) => {
+                console.log('res',res);
                 if (res === 200){
                     setTimeout(() => {
                         loginLoading.value = false;
