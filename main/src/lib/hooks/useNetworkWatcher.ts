@@ -59,10 +59,10 @@ const useNetworkWatcher = (config?:hookConfig):hookReturnType => {
         online.value = true;
         if (!intervalTimer.value){
             intervalTimer.value = window.setInterval(()=>{
-                const curDownLinkSpeed = connection.downlink;
+                const curDownLinkSpeed = connection.downlink ;
                 if (isSupport(connection,curDownLinkSpeed)){
-                    if (Math.abs(Number(curDownLinkSpeed) - Number(speed.value)) >= offset){
-                        speed.value = curDownLinkSpeed
+                    if (Math.abs(Number(curDownLinkSpeed  * 1024 / 8) - Number(speed.value)) >= offset){
+                        speed.value = curDownLinkSpeed  * 1024 / 8
                     }
                 }
             },time)
