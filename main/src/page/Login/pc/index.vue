@@ -1,6 +1,6 @@
 <template>
       <section
-        :class="`rounded w-96 h-1/3 shadow-xl bg-filter flex items-center justify-center flex-col`"
+        :class="`rounded w-96 h-1/3 shadow-xl bg-filter flex items-center justify-center flex-col transform ${animationName}`"
       >
         <section class="my-2 font-mono text-lg antialiased font-extrabold text-white">
           <p>Hi~ Chris!</p>
@@ -22,10 +22,10 @@
       </section>
 </template>
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from 'vue'
+import { defineComponent, ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import clInput from '../../../components/Input/pc.vue'
 import clButton from '../../../components/Button/index.vue'
-import {useNetworkWatcher} from '../../../lib/hooks/useNetworkWatcher';
 
 export default defineComponent({
   name: 'PcLogin',
@@ -34,6 +34,10 @@ export default defineComponent({
       default:false,
       type:Boolean,
     },
+    loginStatus:{
+      default:'fail',
+      type:String
+    }
   },
   components: {
     'cl-input': clInput,
@@ -42,17 +46,23 @@ export default defineComponent({
   setup(props,ctx) {
     const username = ref('')
     const password = ref('')
+    const router = useRouter()
+    const animationName = ref('out-of-screen-y')
+    onMounted(() => {
+      animationName.value = 'drop-in'
+    })
+    watch(props,()=>{
+      if(props.loginStatus === 'success') {
+        animationName.value = 'drop-out'
+        setTimeout(() => {
+          router.push({ name: 'Home' })
+        },1000)
+      }
+    })
     const handleClick = () => {
       ctx.emit('loginMethod',{username:username.value, password:password.value})
     }
-    const {online,speed} = useNetworkWatcher();
-    watch(online,(cur) =>{
-      console.log('当前网络状态',cur)
-    })
-    watch(speed,(cur) =>{
-      console.log('当前网络速度',cur)
-    })
-    return {handleClick,username, password }
+    return {handleClick,username, password, animationName }
   }
 })
 </script>
