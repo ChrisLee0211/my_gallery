@@ -15,7 +15,7 @@ const secretKey = 'litai'
 const loginState:Module<LoginType,rootState> = {
     namespaced:true,
     state: () => ({
-        isLogin: false,
+        isLogin: true,
     }),
     mutations: {
         SET_LOGIN_STATUS(state, val:boolean){
