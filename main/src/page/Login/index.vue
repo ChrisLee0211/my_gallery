@@ -71,7 +71,7 @@ export default defineComponent({
 }
 
 .drop-in {
-  animation: dropIn 0.8s ease-in-out;
+  animation: dropIn 0.5s ease-in-out;
 }
 
 @keyframes dropIn {
@@ -87,14 +87,14 @@ export default defineComponent({
 }
 
 .drop-out {
-    animation: dropOut 0.8s ease-in-out forwards;
+    animation: dropOut 0.5s ease-in-out forwards;
 }
 
 @keyframes dropOut {
   0% {
     transform:translateY(0%)
   }
-  80% {
+  20% {
     transform:translateY(10%)
   }
   100% {

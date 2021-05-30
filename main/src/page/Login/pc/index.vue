@@ -7,12 +7,12 @@
           <p>Long time no see!</p>
         </section>
         <div class="w-3/5 my-2 flex justify-center">
-          <cl-input v-model:value="username">
+          <cl-input v-model:value="username" @keyup.enter="handleClick">
             <template v-slot:prefix> 账号 </template>
           </cl-input>
         </div>
         <div class="w-3/5 my-2 flex justify-center">
-          <cl-input :type="'password'"  v-model:value="password" >
+          <cl-input :type="'password'"  v-model:value="password" @keyup.enter="handleClick">
             <template v-slot:prefix> 密码 </template>
           </cl-input>
         </div>
