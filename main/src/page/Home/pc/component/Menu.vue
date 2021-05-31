@@ -6,7 +6,7 @@
             <li
             v-for="item in list" 
             :key="item.text"
-            :class="`flex justify-center items-center p-4 transform text-base text-white hover:bg-white hover:text-black hover:scale-125 cursor-pointer`"
+            :class="`flex justify-center items-center p-4 transform transition-transform hover:bg-white hover:text-black hover:scale-110 hover:shadow-xl cursor-pointer ${item.active?activeClass:normalClass}`"
             >{{item.text}}</li>
         </ul>
     </div>
@@ -32,21 +32,23 @@ export default defineComponent({
             {
                 text:'我的画廊',
                 pathName:'Gallery',
-                active:true
+                active:false
             },
             {
                 text:'Lee`s Blog',
                 pathName:'Blog',
-                active:true
+                active:false
             },
             {
                 text:'工具',
                 pathName:'Util',
-                active:true
+                active:false
             },
         ])
+        const activeClass = `bg-white text-black shadow-2xl`
+        const normalClass = `text-base text-white`    
         return {
-            list
+            list, activeClass,normalClass
         }
     },
 })
