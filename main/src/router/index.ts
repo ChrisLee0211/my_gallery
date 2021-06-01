@@ -1,9 +1,20 @@
 import {RouteRecordRaw,createRouter,createWebHashHistory} from 'vue-router';
 import Home from '../page/Home/index.vue';
+import Layout from '../page/Layout/index.vue';
 import Login from '../page/Login/index.vue';
 import store from '../store'
-const routes:RouteRecordRaw[] = [
-    {path:'/',component:Home,name:'Home'},
+export const routes:RouteRecordRaw[] = [
+    {
+        path:'/',
+        component:Layout,
+        name:'',
+        redirect(){return{name:'home'}},
+        children:[
+            {path:'/home',component:Home,name:'home',meta:{title:'首页'}},
+            {path:'/home',component:Home,name:'gallery',meta:{title:'画廊'}},
+            {path:'/home',component:Home,name:'blog',meta:{title:'lee`s blog'}},
+            {path:'/home',component:Home,name:'utils',meta:{title:'工具'}},
+    ]},
     {path:'/login',component:Login,name:'Login'} 
 ]
 
