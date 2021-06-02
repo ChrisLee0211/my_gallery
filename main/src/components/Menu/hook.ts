@@ -1,5 +1,5 @@
-import { computed, ComputedRef } from 'vue';
-import {useRoute,useRouter} from 'vue-router';
+import { computed, ComputedRef, watch } from 'vue';
+import {useRouter} from 'vue-router';
 import {routes} from '../../router/index'
 
 interface MenuItem {
@@ -9,9 +9,7 @@ interface MenuItem {
 }
 
 export const useMenu = () => {
-    const route = useRoute();
-    const router = useRouter()
-    const currentRouteName = route.name;
+    const router = useRouter();
     const menuList: ComputedRef<MenuItem[]>= computed(() => {
         const entryRoute = routes.find(item => item.name === '');
         if(entryRoute && entryRoute.children) {
@@ -19,7 +17,7 @@ export const useMenu = () => {
                 return {
                     text:routeConfig.meta?.title as string??'',
                     pathName:routeConfig.name as string,
-                    active:routeConfig.name === currentRouteName
+                    active:routeConfig.name === router.currentRoute.value.name
                 }
             })
         }
@@ -27,7 +25,7 @@ export const useMenu = () => {
     });
 
     const handleClick = (routeName:string) => {
-        if (routeName === currentRouteName) return
+        if (routeName === router.currentRoute.value.name) return
         router.push({ name: routeName })
     };
     return {
