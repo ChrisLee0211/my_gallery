@@ -21,7 +21,7 @@ export default defineComponent({
     setup() {
         console.log('menu')
         const {list,clickMenu} = useMenu();
-        const activeClass = `bg-white text-black shadow-2xl`
+        const activeClass = `text-white shadow-2xl border-b-4 border-white`
         const normalClass = `text-base text-white`    
         return {
             list, activeClass,normalClass, clickMenu
