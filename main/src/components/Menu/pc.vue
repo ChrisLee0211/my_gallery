@@ -1,4 +1,5 @@
 <template>
+    <!-- 横向 -->
     <div class="w-full fixed top-0 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
         <ul 
             :class="`font-mono list-none flex w-7/12 h-full`"
@@ -10,6 +11,10 @@
             :class="`flex justify-center items-center p-4 transform transition-transform hover:bg-white hover:text-black hover:scale-110 hover:shadow-xl cursor-pointer ${item.active?activeClass:normalClass}`"
             >{{item.text}}</li>
         </ul>
+    </div>
+    <!-- 纵向 -->
+    <div class="">
+
     </div>
 </template>
 <script lang="ts">
@@ -26,7 +31,6 @@ export default defineComponent({
         const topOffset = ref(0); // 0 ~ -60
         const rightOffset = ref(0);
         const scrollListener = (e:Event) => {
-            console.log('e', e)
             const target = e.target as Document;
             const scrollTop = target.documentElement.scrollTop;
             if(scrollTop > 120) {
