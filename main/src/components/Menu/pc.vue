@@ -1,5 +1,4 @@
 <template>
-    <!-- 横向 -->
     <div class="w-full fixed top-0 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
         <ul 
             :class="`font-mono list-none flex w-7/12 h-full`"
@@ -12,14 +11,11 @@
             >{{item.text}}</li>
         </ul>
     </div>
-    <!-- 纵向 -->
-    <div class="">
-
-    </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, Ref, onMounted, onUnmounted, computed } from 'vue'
 import {useMenu} from './hook';
+import {useDebounceValue} from '../../lib/hooks/useDebounceValue';
 
 
 export default defineComponent({
@@ -29,7 +25,7 @@ export default defineComponent({
         const normalClass = `text-base text-white`;
 
         const topOffset = ref(0); // 0 ~ -60
-        const rightOffset = ref(0);
+        const isScrollOverMenuHeight = useDebounceValue(false,300);
         const scrollListener = (e:Event) => {
             const target = e.target as Document;
             const scrollTop = target.documentElement.scrollTop;
@@ -39,15 +35,36 @@ export default defineComponent({
             }else {
                 const curValue = topOffset.value + scrollTop/2
                 topOffset.value = Math.min(curValue,0);
+                // scroll溢出校正
+                if (scrollTop <= 0) {
+                    topOffset.value = 0
+                }
             }
-            console.log(topOffset.value)
+                isScrollOverMenuHeight.value = topOffset.value <= -60
+            
+        }
+        const mouseListener = (e:MouseEvent) => {
+            const mouseY = e.clientY;
+            if (mouseY>0 && mouseY <=60) {
+                if (isScrollOverMenuHeight.value){
+                    topOffset.value = 0
+                }
+            }else {
+                console.log('isScrollOverMenuHeight', isScrollOverMenuHeight.value);
+                if (isScrollOverMenuHeight.value && topOffset.value === 0){
+                    topOffset.value = -60
+                }
+            }
         }
         onMounted(() => {
             window.addEventListener('scroll',scrollListener)
+            window.addEventListener('mousemove',mouseListener)
         })
         onUnmounted(() => {
             window.removeEventListener('scroll',scrollListener)
+            window.removeEventListener('mousemove',mouseListener)
         })
+
         return {
             list, activeClass,normalClass, clickMenu, topOffset
         }
