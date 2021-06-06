@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full fixed top-0 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
+    <div class="w-full fixed transform-gpu top-0 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
         <ul 
             :class="`font-mono list-none flex w-7/12 h-full`"
             >
@@ -15,15 +15,16 @@
 <script lang="ts">
 import { defineComponent, ref, Ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import {useMenu} from './hook';
-import {useDebounceValue, useScrollTop} from '../../lib/hooks';
+import {useDebounceValue, useScrollTop, useMousePostion} from '../../lib/hooks';
 
 
 export default defineComponent({
     setup() {
         const {list,clickMenu} = useMenu();
+        const scrollTop = useScrollTop();
+        const mousePosition = useMousePostion();
         const activeClass = `text-white shadow-2xl border-b-4 border-white`;
         const normalClass = `text-base text-white`;
-        const scrollTop = useScrollTop();
         const topOffset = ref(0); // 0 ~ -60
         const isScrollOverMenuHeight = useDebounceValue(false,300);
         watch(scrollTop,() => {
@@ -40,8 +41,8 @@ export default defineComponent({
             }
                 isScrollOverMenuHeight.value = topOffset.value <= -60
         })
-        const mouseListener = (e:MouseEvent) => {
-            const mouseY = e.clientY;
+        watch(mousePosition,() => {
+            const mouseY = mousePosition.value.y;
             if (mouseY>0 && mouseY <=60) {
                 if (isScrollOverMenuHeight.value){
                     topOffset.value = 0
@@ -51,14 +52,7 @@ export default defineComponent({
                     topOffset.value = -60
                 }
             }
-        }
-        onMounted(() => {
-            window.addEventListener('mousemove',mouseListener)
         })
-        onUnmounted(() => {
-            window.removeEventListener('mousemove',mouseListener)
-        })
-
         return {
             list, activeClass,normalClass, clickMenu, topOffset
         }
