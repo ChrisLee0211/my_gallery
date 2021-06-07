@@ -50,7 +50,7 @@ export default defineComponent({
     }
     watch(props,()=>{
       if(props.loginStatus === 'success') {
-          router.push({ name: 'Home' })
+          router.push({ name: 'home' })
       }
     })
     return { userInfo, handleClick }

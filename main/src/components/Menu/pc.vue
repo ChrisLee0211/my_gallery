@@ -13,7 +13,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import {useMenu} from './hook';
 import {useDebounceValue, useScrollTop, useMousePostion} from '../../lib/hooks';
 

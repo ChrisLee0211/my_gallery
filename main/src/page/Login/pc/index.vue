@@ -55,7 +55,7 @@ export default defineComponent({
       if(props.loginStatus === 'success') {
         animationName.value = 'drop-out'
         setTimeout(() => {
-          router.push({ name: 'Home' })
+          router.push({ name: 'home' })
         },1000)
       }
     })

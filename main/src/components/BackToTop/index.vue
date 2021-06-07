@@ -1,12 +1,14 @@
 <template>
     <div 
-        class="rounded-full w-12 h-12 bg-black shadow-md flex items-center justify-center cursor-pointer" 
+        :class="`rounded-full w-12 h-12 bg-black shadow-md flex items-center justify-center cursor-pointer `" 
+        @mouseenter="enter"
+        @mouseleave="leave"
         @click="clickToTop">
-        <Icon :name="`topArrow`" :customClass="`text-white`"/>
+        <Icon :name="`topArrow`" :customClass="animateClass"/>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Icon from '../Icon/index.vue';
 
 export default defineComponent({
@@ -14,14 +16,24 @@ export default defineComponent({
         Icon:Icon
     },
     setup() {
+        const animateClass = ref('')
         const clickToTop = () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth',
             });
         }
+        const enter = () => {
+            animateClass.value = 'animate-bounce';
+        }
+        const leave = () => {
+            animateClass.value = '';
+        }
         return {
-            clickToTop
+            clickToTop,
+            enter,
+            leave,
+            animateClass,
         }
     },
 })
