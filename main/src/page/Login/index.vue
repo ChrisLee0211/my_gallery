@@ -27,7 +27,6 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
-    const router = useRouter()
     const isPC = computed(() => {
       return store.state.deviceType === 'pc'
     })
