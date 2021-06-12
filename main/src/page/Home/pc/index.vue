@@ -26,10 +26,13 @@
 import { defineComponent } from 'vue';
 import { useStore } from '../../../store/index';
 import {NButton} from 'naive-ui';
+import {Button} from 'vant';
+import 'vant/es/button/style';
+
 
 export default defineComponent({
     components:{
-        'n-button':NButton
+        'n-button':Button
     },
     setup() {
         const store = useStore();
