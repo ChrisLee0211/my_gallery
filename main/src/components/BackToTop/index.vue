@@ -1,6 +1,6 @@
 <template>
     <div 
-        :class="`rounded-full w-12 h-12 bg-black shadow-md flex items-center justify-center cursor-pointer `" 
+        :class="`rounded-full w-12 h-12 z-50 bg-black shadow-md flex items-center justify-center cursor-pointer `" 
         @mouseenter="enter"
         @mouseleave="leave"
         @click="clickToTop">

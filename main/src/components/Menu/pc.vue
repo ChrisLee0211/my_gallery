@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full fixed transform-gpu top-0 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
+    <div class="w-full fixed transform-gpu top-0 z-50 flex bg-black justify-center transition" :style="`transform:translateY(${topOffset}px)`">
         <ul 
             :class="`font-mono list-none flex w-7/12 h-full`"
             >
