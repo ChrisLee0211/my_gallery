@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full scroll-3d-wrapper">
-      <section style="height: 1300px;overflow:hidden">
+      <section class="header-part">
         <img 
         v-for="item in wrapperSources" 
         :key="item.className" 
@@ -8,35 +8,15 @@
         :src="item.src" 
         alt=""/>
       </section>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
-      <p>tst</p>
+      <section class="main-part">
+        <div class="main-part-left">
+            <n-card hoverable size="small">卡片一</n-card>
+            <n-card hoverable size="small">卡片二</n-card>
+        </div>
+        <div class="main-part-right">
+            <n-card hoverable size="huge">卡片三</n-card>
+        </div>
+      </section>
   </div>
 </template>
 <script lang="ts">
@@ -48,12 +28,12 @@ import mountain3 from '../../../assets/zIndex3.png'
 import mountain4 from '../../../assets/zIndex4.png'
 import mountain5 from '../../../assets/zIndex5.png'
 import mountain6 from '../../../assets/zIndex6.png'
-import mountain7 from '../../../assets/zIndex7.png'
-
-import 'vant/es/button/style'
+import {NCard} from 'naive-ui';
 
 export default defineComponent({
-  components: {},
+  components: {
+      'n-card':NCard
+  },
   setup() {
     const store = useStore()
     const day = store.state.days;
@@ -79,6 +59,11 @@ export default defineComponent({
   width: 100vw;
   overflow-y: scroll;
   margin-top: 60px;
+  .header-part{
+    height: 100vh;
+    overflow: hidden;
+    background: #b7cce0;
+  }
   .item-1 {
     transform: translate3d(0,-850px,-6px) scale(7);
   }
@@ -96,6 +81,9 @@ export default defineComponent({
   }
   .item-6 {
     transform: translate3d(0,-400px,-1px) scale(3);
+  }
+  .main-part {
+      display: flex;
   }
 }
 </style>
