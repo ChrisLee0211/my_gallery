@@ -4,7 +4,7 @@
     <!-- 回到顶部按钮 -->
     <div 
     v-if="isPC" 
-    :class="`fixed ${backToTopPositionX} bottom-12 rounded-full shadow-lg transition-all`"
+    :class="`fixed ${backToTopPositionX} bottom-12 rounded-full shadow-lg transition-all z-50`"
     >
     <BackToTop  />
     </div>
