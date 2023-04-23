@@ -1,5 +1,5 @@
 {
-  "name": "main",
+  "name": "@my_gallery/client",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
